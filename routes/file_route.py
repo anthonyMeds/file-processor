@@ -8,9 +8,9 @@ router = APIRouter()
 async def create_file():
     return FileProcessor().create_file()
 
-@router.post('/file/upload_file')
+@router.post("/upload_file")
 async def upload_file(file: UploadFile = File(...)):
-    return await file.read()
+    return await FileProcessor().upload_file(file)
 
 @router.post('/file/add_data')
 async def add_data(conta: str, agencia: str, texto: str, valor: float):
