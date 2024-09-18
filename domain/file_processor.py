@@ -52,3 +52,16 @@ class FileProcessor:
                 status_code=status.HTTP_406_NOT_ACCEPTABLE,
                 detail="Apenas arquivos CSV são aceitos"
             )
+
+    async def add_data_to_file(self, data: dict):
+
+        if os.path.exists(self.file_path):
+            with open(self.file_path, 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([data['conta'], data['agencia'], data['texto'], data['valor']])
+                return {'mensagem': f"Dados inserido com sucesso: {data}"}
+
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail="Arquivo inexistente, por favor acessar"
+                                       " a rota de criar a arquivo.")
