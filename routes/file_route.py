@@ -20,3 +20,7 @@ async def add_data(conta: str, agencia: str, texto: str, valor: float):
 @router.post("/file/delete_data")
 async def delete_data():
     return {"message": "Dado deletado com sucesso"}
+
+@router.post("/file/list_files")
+async def list_files():
+    return await FileProcessor().list_files()

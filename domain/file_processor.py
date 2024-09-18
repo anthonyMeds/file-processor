@@ -65,3 +65,22 @@ class FileProcessor:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                 detail="Arquivo inexistente, por favor acessar"
                                        " a rota de criar a arquivo.")
+
+
+    async def list_files(self):
+
+        file_path = "data/seu_file.csv"
+
+        if not os.path.exists(file_path):
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                detail="Arquivo inexistente, por favor acessar a rota de criar arquivo")
+
+        file_data = []
+
+        with open(file_path, mode="r") as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                file_data.append(row)
+
+        return file_data
